@@ -20,14 +20,14 @@ else:
     device = torch.device("cpu")
     print("GPU not available, CPU used")
 data_dir=os.getcwd()
-df = pd.read_csv(f"{data_dir}/../Class Ex/Movie_reviews.csv", encoding='ISO-8859-1')
+df = pd.read_csv(f"{data_dir}/../Class Ex/move_reviews.csv", encoding='ISO-8859-1')
 #df=df.head()
 #sys.exit(0)
-X,y = df['review'].values,df['label'].values
+X,y = df['review'].values,df['sentiment'].values
 print(X[1:5])
 print(y[1:5])
 #
-x_train,x_test,y_train,y_test = train_test_split(X,y,stratify=y)
+x_train,x_test,y_train,y_test = train_test_split(X,y)
 print(f'shape of train data is {x_train.shape}')
 print(f'shape of test data is {x_test.shape}')
 
@@ -99,7 +99,7 @@ class SentimentRNN(nn.Module):
         self.no_layers = no_layers
         self.vocab_size = vocab_size
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
-        self.lstm = nn.LSTM(input_size=embedding_dim, hidden_size=self.hidden_dim, num_layers=no_layers, batch_first=True,weight_decay = 0.001)
+        self.lstm = nn.LSTM(input_size=embedding_dim, hidden_size=self.hidden_dim, num_layers=no_layers, batch_first=True)
         self.dropout = nn.Dropout(0.3)
         self.fc = nn.Linear(self.hidden_dim, output_dim)
         self.sig = nn.Sigmoid()
@@ -162,7 +162,7 @@ def acc(pred,label):
     return torch.sum(pred == label.squeeze()).item()
 
 clip = 5
-epochs = 5
+epochs = 10
 valid_loss_min = np.Inf
 epoch_tr_loss, epoch_vl_loss = [], []
 epoch_tr_acc, epoch_vl_acc = [], []
@@ -235,5 +235,7 @@ for epoch in range(epochs):
     epoch_vl_acc.append(epoch_val_acc)
     print(f'Epoch {epoch + 1}')
     print(f'train_loss : {epoch_train_loss} val_loss : {epoch_val_loss}')
-    print(f'train_accuracy : {epoch_train_acc * 100} val_accuracy : {epoch_val_acc * 100}')
+    print(f'train_accuracy : {epoch_train_acc } val_accuracy : {epoch_val_acc }')
+
+
 
