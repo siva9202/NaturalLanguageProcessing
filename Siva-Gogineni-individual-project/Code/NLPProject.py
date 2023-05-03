@@ -20,7 +20,9 @@ else:
     device = torch.device("cpu")
     print("GPU not available, CPU used")
 data_dir=os.getcwd()
-df = pd.read_csv(f"{data_dir}/../Data/move_reviews.csv", encoding='ISO-8859-1')
+#Below link has dataset location.
+#https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews?select=IMDB+Dataset.csv
+df = pd.read_csv(f"{data_dir}/../Data/IMDB Dataset.csv", encoding='ISO-8859-1')
 #df=df.head()
 #sys.exit(0)
 X,y = df['review'].values,df['sentiment'].values
