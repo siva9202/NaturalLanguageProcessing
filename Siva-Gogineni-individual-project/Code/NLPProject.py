@@ -20,11 +20,16 @@ else:
     device = torch.device("cpu")
     print("GPU not available, CPU used")
 data_dir=os.getcwd()
+
 #Below link has dataset location.
 #https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews?select=IMDB+Dataset.csv
-df = pd.read_csv(f"{data_dir}/../Data/IMDB Dataset.csv", encoding='ISO-8859-1')
+
+#please change the following data location to your local directory file location before running the code.
+
+data="C:\\Users\\Siva Gogineni\\Documents\\Python Scripts\\NaturalLanguageProcessing\\NLP-master\\NLP-master\\Lecture_07\\Class Ex\\IMDB Dataset.csv"
+df = pd.read_csv(data, encoding='ISO-8859-1')
 #df=df.head()
-#sys.exit(0)
+
 X,y = df['review'].values,df['sentiment'].values
 print(X[1:5])
 print(y[1:5])
